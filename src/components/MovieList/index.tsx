@@ -19,6 +19,7 @@ const MovieList = ({ imageURL, title, id }: MovieListProps) => {
         width={350}
         height={350}
         className="p-1 rounded-xl min-h-[309.66px] object-cover"
+        priority
       />
       <h3 className="font-bold text-sm md:text-md lg:text-lg xl:text-xl text-center p-2 my-auto">
         {title}
