@@ -11,7 +11,7 @@ const MovieList = ({ imageURL, title, id }: MovieListProps) => {
   return (
     <Link
       href={`/${id}`}
-      className="shadow-xl rounded-lg cursor-pointer border border-black flex flex-col"
+      className="shadow-xl rounded-lg cursor-pointer border border-slate-300 flex flex-col"
     >
       <Image
         src={imageURL}

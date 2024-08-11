@@ -11,7 +11,7 @@ const Home = async () => {
   return (
     <div>
       <h1>Paling Populer</h1>
-      <div className="grid md:grid-cols-5 sm:grid-cols-3 grid-cols-2 gap-2">
+      <div className="grid sm:grid-cols-3 lg:grid-cols-5 grid-cols-2 gap-2">
         {movies.results.map((movie: any) => (
           <MovieList
             key={movie.id}
