@@ -8,17 +8,11 @@ const InputSearch = () => {
   const searchRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
-  const handleSearch = () => {
-    const keyword = searchRef.current?.value.trim();
-    if (keyword) {
-      router.push(`/search/${encodeURIComponent(keyword)}`);
-    }
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
+  const handleSearch = (e) => {
+    const keyword = searchRef.current?.value as string;
+    if (e.key === 'Enter' && event?.type === 'click') {
       e.preventDefault();
-      handleSearch();
+      router.push(`/search/${encodeURIComponent(keyword)}`);
     }
   };
 
@@ -28,7 +22,7 @@ const InputSearch = () => {
         placeholder="Cari film...."
         className="border border-slate-500 py-2 px-3 font-medium w-full rounded-lg bg-slate-50"
         ref={searchRef}
-        onKeyDown={handleKeyDown}
+        onKeyDown={handleSearch}
       />
       <button className="absolute end-2 top-2">
         <MagnifyingGlass
