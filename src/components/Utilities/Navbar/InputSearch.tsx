@@ -9,8 +9,8 @@ const InputSearch = () => {
   const router = useRouter();
 
   const handleSearch = (e: any) => {
-    const keyword = searchRef.current?.value as string;
-    if (e.key === 'Enter' && e.type === 'click') {
+    if (e.key === 'Enter' || e.type === 'click') {
+      const keyword = searchRef.current?.value as string;
       e.preventDefault();
       router.push(`/search/${encodeURIComponent(keyword)}`);
     }
@@ -24,12 +24,8 @@ const InputSearch = () => {
         ref={searchRef}
         onKeyDown={handleSearch}
       />
-      <button className="absolute end-2 top-2">
-        <MagnifyingGlass
-          size={24}
-          enableBackground={'white'}
-          onClick={handleSearch}
-        />
+      <button className="absolute end-2 top-2" onClick={handleSearch}>
+        <MagnifyingGlass size={24} />
       </button>
     </div>
   );

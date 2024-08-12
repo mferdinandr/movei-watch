@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import Text from '../Text';
 
 const MovieList = ({ api }: { api: any }) => {
   return (
@@ -29,7 +30,7 @@ const MovieList = ({ api }: { api: any }) => {
                 />
               ) : (
                 <div className="p-1 rounded-xl h-full flex items-center text-center justify-center bg-gray-200">
-                  <span>No Image Available</span>
+                  <Text title="No Image Available" />
                 </div>
               )}
               <h3 className="font-bold text-sm md:text-md lg:text-lg xl:text-xl text-center p-2 my-auto">
