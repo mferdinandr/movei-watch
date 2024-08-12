@@ -7,24 +7,31 @@ type MovieListProps = {
   id: number;
 };
 
-const MovieList = ({ imageURL, title, id }: MovieListProps) => {
+const MovieList = ({ api }) => {
   return (
-    <Link
-      href={`/${id}`}
-      className="shadow-xl rounded-lg cursor-pointer border border-slate-300 flex flex-col"
-    >
-      <Image
-        src={imageURL}
-        alt={`${title} Image`}
-        width={350}
-        height={350}
-        className="p-1 rounded-xl min-h-[309.66px] object-cover"
-        priority
-      />
-      <h3 className="font-bold text-sm md:text-md lg:text-lg xl:text-xl text-center p-2 my-auto">
-        {title}
-      </h3>
-    </Link>
+    <div className="grid sm:grid-cols-3 lg:grid-cols-5 grid-cols-2 gap-2">
+      {api.results.map((data) => {
+        return (
+          <Link
+            key={data.id}
+            href={`/${data.id}`}
+            className="shadow-xl rounded-lg cursor-pointer border border-slate-300 flex flex-col"
+          >
+            <Image
+              src={`https://image.tmdb.org/t/p/w500${data.poster_path}`}
+              alt={`${data.original_title} Image`}
+              width={350}
+              height={350}
+              className="p-1 rounded-xl min-h-[309.66px] object-cover"
+              priority
+            />
+            <h3 className="font-bold text-sm md:text-md lg:text-lg xl:text-xl text-center p-2 my-auto">
+              {data.original_title}
+            </h3>
+          </Link>
+        );
+      })}
+    </div>
   );
 };
 
