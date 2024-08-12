@@ -5,8 +5,8 @@ import Link from 'next/link';
 type HeaderProps = {
   title: string;
   type?: string;
-  linkHref: string;
-  linkTitle: string;
+  linkHref?: string;
+  linkTitle?: string;
 };
 
 const Header = ({ title, type, linkHref, linkTitle }: HeaderProps) => {

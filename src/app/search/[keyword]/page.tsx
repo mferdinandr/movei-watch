@@ -4,21 +4,27 @@ import Header from '@/components/MovieList/Header';
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
-const Page = async () => {
-  const response = await fetch(`${BASE_URL}movie/popular?api_key=${API_KEY}`);
+type Params = {
+  keyword: string;
+};
 
-  const topMovies = await response.json();
+const Page = async ({ params }: { params: Params }) => {
+  const { keyword } = params;
+  const response = await fetch(
+    `${BASE_URL}search/movie?query=${keyword}&api_key=${API_KEY}`
+  );
+
+  const searcedMovies = await response.json();
 
   return (
     <div className="my-2">
       <section>
         <Header
-          title={'Paling Populer'}
+          title={`Pencarian film untuk '${decodeURIComponent(keyword)}'`}
           type={'main'}
-          linkTitle="Lihat semua"
           linkHref="/populer"
         />
-        <MovieList api={topMovies} />
+        <MovieList api={searcedMovies} />
       </section>
     </div>
   );
