@@ -8,9 +8,9 @@ const InputSearch = () => {
   const searchRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
-  const handleSearch = (e) => {
+  const handleSearch = (e: any) => {
     const keyword = searchRef.current?.value as string;
-    if (e.key === 'Enter' && event?.type === 'click') {
+    if (e.key === 'Enter' && e.type === 'click') {
       e.preventDefault();
       router.push(`/search/${encodeURIComponent(keyword)}`);
     }
