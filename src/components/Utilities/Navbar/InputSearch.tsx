@@ -1,13 +1,19 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { MagnifyingGlass } from '@phosphor-icons/react';
 import { useRouter } from 'next/navigation';
 
-const InputSearch = () => {
+const InputSearch = ({ back }) => {
   const searchRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const [eror, setEror] = useState(false);
+
+  useEffect(() => {
+    if (back) {
+      setEror(false);
+    }
+  }, [back]);
 
   const handleSearch = (e: any) => {
     const keyword = searchRef.current?.value as string;
@@ -27,8 +33,9 @@ const InputSearch = () => {
     <div className="relative sm:w-[40%] lg:w-1/4">
       <input
         placeholder="Cari film...."
-        className="py-2 px-3 font-medium w-full rounded-lg bg-color-dark text-color-accent"
+        className="py-2 pl-8 font-medium w-full rounded-lg bg-color-dark text-color-accent"
         ref={searchRef}
+        type="search"
         onKeyDown={handleSearch}
       />
       {eror && (

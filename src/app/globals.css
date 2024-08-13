@@ -56,3 +56,12 @@ img:hover {
     transform: rotate(360deg);
   }
 }
+
+input[type='search']::-webkit-search-cancel-button {
+  position: absolute;
+  left: 11px;
+  cursor: pointer;
+  color: #eee;
+  background: #00adb5;
+  background-size: 10px 10px;
+}
