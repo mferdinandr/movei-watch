@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { MagnifyingGlass } from '@phosphor-icons/react';
 import { useRouter } from 'next/navigation';
 
-const InputSearch = ({ back }) => {
+const InputSearch = ({ back }: { back: boolean }) => {
   const searchRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const [eror, setEror] = useState(false);
@@ -19,7 +19,7 @@ const InputSearch = ({ back }) => {
     const keyword = searchRef.current?.value as string;
 
     if (e.key === 'Enter' || e.type === 'click') {
-      if (keyword.length >= 3) {
+      if (keyword.length >= 2) {
         e.preventDefault();
         router.push(`/search/${encodeURIComponent(keyword)}`);
         setEror(false);
@@ -40,7 +40,7 @@ const InputSearch = ({ back }) => {
       />
       {eror && (
         <p className="absolute text-color-eror top-[0.5rem] xl:right-[2.6rem] right-10">
-          Harus lebih dari 2 kata
+          Harus lebih dari 1 kata
         </p>
       )}
       <button className="absolute end-2 top-2" onClick={handleSearch}>
