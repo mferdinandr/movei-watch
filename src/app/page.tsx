@@ -18,7 +18,7 @@ const Page = async () => {
           linkTitle="Lihat semua"
           linkHref="/populer"
         />
-        <MovieList api={topMovies} />
+        <MovieList api={topMovies.results.slice(0, 10)} />
       </section>
     </div>
   );
