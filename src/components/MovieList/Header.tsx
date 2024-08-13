@@ -13,7 +13,7 @@ const Header = ({ title, type, linkHref, linkTitle }: HeaderProps) => {
   return (
     <div className="flex justify-between px-2 items-center">
       <Text title={title} type={type} />
-      <Link href={`${linkHref}`} className="text-blue-600 underline">
+      <Link href={`${linkHref}`} className="text-color-primary underline">
         {linkTitle}
       </Link>
     </div>
