@@ -20,6 +20,7 @@ const config: Config = {
         accent: '#EEEEEE',
         secondary: '#393E46',
         dark: '#222831',
+        eror: '#FF3333',
       },
     },
   },

@@ -1,29 +1,41 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { MagnifyingGlass } from '@phosphor-icons/react';
 import { useRouter } from 'next/navigation';
 
 const InputSearch = () => {
   const searchRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
+  const [eror, setEror] = useState(false);
 
   const handleSearch = (e: any) => {
+    const keyword = searchRef.current?.value as string;
+
     if (e.key === 'Enter' || e.type === 'click') {
-      const keyword = searchRef.current?.value as string;
-      e.preventDefault();
-      router.push(`/search/${encodeURIComponent(keyword)}`);
+      if (keyword.length >= 3) {
+        e.preventDefault();
+        router.push(`/search/${encodeURIComponent(keyword)}`);
+        setEror(false);
+      } else {
+        setEror(true);
+      }
     }
   };
 
   return (
-    <div className="relative md:w-1/4">
+    <div className="relative sm:w-[40%] lg:w-1/4">
       <input
         placeholder="Cari film...."
-        className="border border-slate-500 py-2 px-3 font-medium w-full rounded-lg bg-color-dark text-color-accent"
+        className="py-2 px-3 font-medium w-full rounded-lg bg-color-dark text-color-accent"
         ref={searchRef}
         onKeyDown={handleSearch}
       />
+      {eror && (
+        <p className="absolute text-color-eror top-[0.5rem] xl:right-[2.6rem] right-10">
+          Harus lebih dari 2 kata
+        </p>
+      )}
       <button className="absolute end-2 top-2" onClick={handleSearch}>
         <MagnifyingGlass size={24} color="#EEEEEE" />
       </button>
