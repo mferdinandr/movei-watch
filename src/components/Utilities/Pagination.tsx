@@ -15,12 +15,16 @@ const Pagination = ({ page, setPage, lastPage }: PaginationProps) => {
   };
 
   const handleNextPage = () => {
-    setPage((prevState) => prevState + 1);
-    scrollOnTop();
+    if (page === lastPage) {
+      return;
+    } else {
+      setPage((prevState) => prevState + 1);
+      scrollOnTop();
+    }
   };
 
   const handlePrevPage = () => {
-    if (page === 1 || page === lastPage) {
+    if (page === 1) {
       return;
     } else {
       setPage((prevState) => prevState - 1);

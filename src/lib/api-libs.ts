@@ -9,9 +9,9 @@ export const fetchApi = async (resource: string, query?: string) => {
   return movies;
 };
 
-export const searchDataApi = async (keyword: string) => {
+export const searchDataApi = async (keyword: string, query?: number) => {
   const response = await fetch(
-    `${BASE_URL}search/movie?query=${keyword}&api_key=${API_KEY}`
+    `${BASE_URL}search/movie?query=${keyword}&api_key=${API_KEY}&page=${query}`
   );
   const movies = await response.json();
   return movies;
