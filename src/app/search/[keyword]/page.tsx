@@ -9,7 +9,7 @@ type Params = {
   keyword: string;
 };
 
-const Page = ({ params }: { params: Params }) => {
+const Page = ({ params: { keyword } }: { params: Params }) => {
   const [data, setData] = useState<MovieApiResponse>({
     page: 1,
     results: [],
@@ -17,7 +17,6 @@ const Page = ({ params }: { params: Params }) => {
     total_results: 0,
   });
   const [page, setPage] = useState<number>(1);
-  const { keyword } = params;
 
   useEffect(() => {
     const fetchSearchMovie = async () => {

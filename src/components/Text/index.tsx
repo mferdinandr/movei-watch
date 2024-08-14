@@ -19,7 +19,7 @@ const Text: React.FC<TextProps> = ({ title, type, className }) => {
     );
   } else {
     return (
-      <h3 className={`font-medium text-lg py-2 text-color-accent ${className}`}>
+      <h3 className={`text-md md:text-lg py-2 text-color-accent ${className}`}>
         {title}
       </h3>
     );

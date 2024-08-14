@@ -5,9 +5,6 @@ import Pagination from '@/components/Utilities/Pagination';
 import MovieList from '@/components/MovieList';
 import { fetchApi } from '@/lib/api-libs';
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
-const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
-
 const Page = () => {
   const [data, setData] = useState<MovieApiResponse>({
     page: 1,

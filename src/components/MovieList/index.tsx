@@ -16,7 +16,7 @@ const MovieList = ({ api }: { api: any }) => {
           return (
             <Link
               key={data.id}
-              href={`/${data.id}`}
+              href={`/movie/${data.id}`}
               className="shadow-xl rounded-lg cursor-pointer border flex flex-col bg-color-accent hover:text-color-primary transition-all "
             >
               {data.poster_path ? (
