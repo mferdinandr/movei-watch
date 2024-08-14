@@ -1,13 +1,12 @@
 import MovieList from '@/components/MovieList';
 import Header from '@/components/MovieList/Header';
+import { fetchApi } from '@/lib/api-libs';
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
 
 const Page = async () => {
-  const response = await fetch(`${BASE_URL}movie/popular?api_key=${API_KEY}`);
-
-  const topMovies = await response.json();
+  const topMovies = await fetchApi('popular');
 
   return (
     <div className="my-2">

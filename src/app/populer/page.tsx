@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import HeaderMenu from '@/components/Utilities/HeaderMenu';
 import Pagination from '@/components/Utilities/Pagination';
 import MovieList from '@/components/MovieList';
+import { fetchApi } from '@/lib/api-libs';
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
@@ -18,10 +19,7 @@ const Page = () => {
 
   useEffect(() => {
     const fetchTopMovie = async () => {
-      const response = await fetch(
-        `${BASE_URL}movie/popular?api_key=${API_KEY}&page=${page}`
-      );
-      const topMovies = await response.json();
+      const topMovies = await fetchApi('popular', `page=${page}`);
       setData(topMovies);
     };
     fetchTopMovie();

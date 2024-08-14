@@ -1,8 +1,6 @@
 import MovieList from '@/components/MovieList';
 import Header from '@/components/MovieList/Header';
-
-const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
-const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
+import { searchDataApi } from '@/lib/api-libs';
 
 type Params = {
   keyword: string;
@@ -10,11 +8,8 @@ type Params = {
 
 const Page = async ({ params }: { params: Params }) => {
   const { keyword } = params;
-  const response = await fetch(
-    `${BASE_URL}search/movie?query=${keyword}&api_key=${API_KEY}`
-  );
 
-  const searcedMovies = await response.json();
+  const searcedMovies = await searchDataApi(keyword);
 
   return (
     <div className="my-2">
@@ -24,7 +19,7 @@ const Page = async ({ params }: { params: Params }) => {
           type={'main'}
           linkHref="/populer"
         />
-        <MovieList api={searcedMovies} />
+        <MovieList api={searcedMovies.results} />
       </section>
     </div>
   );
