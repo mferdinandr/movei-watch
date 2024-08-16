@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react';
 import Text from '@/components/Text';
 import Image from 'next/image';
 import VideoPlayer from '@/components/Utilities/VideoPlayer';
+import Header from '@/components/MovieList/Header';
+import MovieList from '@/components/MovieList';
 
 type Params = {
   id: string;
@@ -16,6 +18,7 @@ type Movie = {
   genres: { name: string }[];
   poster_path: string;
   overview: string;
+  id: number;
   production_companies: { name: string; origin_country?: string }[];
 };
 
@@ -25,9 +28,16 @@ type videoParams = {
   type: string;
 };
 
+type recomendedMovie = {
+  poster_path: string;
+  id: string;
+  title: string;
+};
+
 const Page = ({ params: { id } }: { params: Params }) => {
   const [trailerKey, setTrailerKey] = useState<string>('');
   const [movie, setMovie] = useState<Movie>();
+  const [recomendedMovie, setRecomendedMovie] = useState<recomendedMovie[]>();
 
   useEffect(() => {
     const fetchVideo = async () => {
@@ -55,9 +65,18 @@ const Page = ({ params: { id } }: { params: Params }) => {
         alert('Error fetching video data:' + error);
       }
     };
-
     fetchVideo();
   }, [id]);
+
+  useEffect(() => {
+    const recomendation = async () => {
+      if (movie) {
+        const recomendedMovie = await fetchApi(`${movie.id}/recommendations`);
+        setRecomendedMovie(recomendedMovie.results);
+      }
+    };
+    recomendation();
+  }, [movie]);
 
   const releaseYear = movie?.release_date.split('-')[0];
 
@@ -127,6 +146,11 @@ const Page = ({ params: { id } }: { params: Params }) => {
       </div>
 
       <VideoPlayer id={trailerKey} />
+
+      <div className="md:mt-14 xl:mt-16 mt-10 pb-14">
+        <Header title={'Rekomendasi'} type={'main'} />
+        <MovieList api={recomendedMovie?.slice(0, 10)} />
+      </div>
     </div>
   );
 };

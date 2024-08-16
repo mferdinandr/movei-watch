@@ -9,7 +9,7 @@ const Page = async () => {
   const topMovies = await fetchApi('popular');
 
   return (
-    <div className="my-2">
+    <div className="my-2 flex flex-col space-y-10">
       <section>
         <Header
           title={'Paling Populer'}

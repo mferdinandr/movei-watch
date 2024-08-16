@@ -5,7 +5,7 @@ import Text from '../Text';
 const MovieList = ({ api }: { api: any }) => {
   return (
     <div className="grid sm:grid-cols-3 lg:grid-cols-5 grid-cols-2 md:gap-3 gap-2">
-      {api.length > 0 ? (
+      {api?.length > 0 ? (
         api.map((data: any) => {
           const posterPath = data.poster_path
             ? data.poster_path.startsWith('/')
@@ -17,7 +17,7 @@ const MovieList = ({ api }: { api: any }) => {
             <Link
               key={data.id}
               href={`/movie/${data.id}`}
-              className="shadow-xl rounded-lg cursor-pointer border flex flex-col bg-color-accent hover:text-color-primary transition-all "
+              className="shadow-xl rounded-lg cursor-pointer border flex flex-col bg-color-accent hover:text-color-primary transition-all text-color-dark"
             >
               {data.poster_path ? (
                 <Image
@@ -37,7 +37,7 @@ const MovieList = ({ api }: { api: any }) => {
                 </div>
               )}
               <h3 className="font-bold text-sm md:text-md lg:text-lg xl:text-xl text-center p-2 my-auto">
-                {data.original_title}
+                {data.original_title || data.title}
               </h3>
             </Link>
           );
