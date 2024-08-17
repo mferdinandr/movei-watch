@@ -19,7 +19,7 @@ const InputSearch = ({ back }: { back: boolean }) => {
     const keyword = searchRef.current?.value as string;
 
     if (e.key === 'Enter' || e.type === 'click') {
-      if (keyword.length >= 2) {
+      if (keyword.length >= 2 && keyword.trim() !== '') {
         e.preventDefault();
         router.push(`/search/${encodeURIComponent(keyword)}`);
         setEror(false);
@@ -30,7 +30,7 @@ const InputSearch = ({ back }: { back: boolean }) => {
   };
 
   return (
-    <div className="relative sm:w-[40%] lg:w-1/4">
+    <div className="relative md:w-[40%] lg:w-1/4">
       <input
         placeholder="Cari film...."
         className="py-2 pl-8 font-medium w-full rounded-lg bg-color-dark text-color-accent"
@@ -40,7 +40,7 @@ const InputSearch = ({ back }: { back: boolean }) => {
       />
       {eror && (
         <p className="absolute text-color-eror top-[0.5rem] xl:right-[2.6rem] right-10">
-          Harus lebih dari 1 kata
+          Harus lebih dari 1 huruf
         </p>
       )}
       <button className="absolute end-2 top-2" onClick={handleSearch}>

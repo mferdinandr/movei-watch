@@ -16,5 +16,3 @@ export const searchDataApi = async (keyword: string, query?: number) => {
   const movies = await response.json();
   return movies;
 };
-
-// https://api.themoviedb.org/3/movie/533535/recommendations?api_key=f0cab34a34a5fa1dd6c6f2c9380ed588

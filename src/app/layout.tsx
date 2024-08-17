@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Gabarito } from 'next/font/google';
 import './globals.css';
+import Providers from '@/lib/provider';
 
 import Navbar from '@/components/Navbar';
 
@@ -19,8 +20,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${gabarito.className} bg-color-dark`}>
-        <Navbar />
-        <div className="sm:pt-[5rem] pt-32 md:mx-20 mx-5">{children}</div>
+        <Providers>
+          <Navbar />
+          <div className="sm:pt-[5rem] pt-32 md:mx-20 mx-5">{children}</div>
+        </Providers>
       </body>
     </html>
   );
