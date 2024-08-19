@@ -22,7 +22,7 @@ export default function RootLayout({
       <body className={`${gabarito.className} bg-color-dark`}>
         <Providers>
           <Navbar />
-          <div className="sm:pt-[5rem] pt-32 md:mx-20 mx-5">{children}</div>
+          <div className="xl:pt-[5rem] lg:pt-[6rem] md:pt-[5rem] pt-[10rem] md:mx-20 mx-5">{children}</div>
         </Providers>
       </body>
     </html>
