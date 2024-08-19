@@ -1,18 +1,9 @@
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import React from 'react';
 import Link from 'next/link';
 import { signIn, signOut, useSession } from 'next-auth/react';
 
 const UserActionButton = () => {
   const { data } = useSession();
-
-  const handleLogOut = () => {
-    if (confirm('Yakin untuk logout?')) {
-      signOut();
-    } else {
-      return;
-    }
-  };
 
   if (data) {
     return (
@@ -28,16 +19,16 @@ const UserActionButton = () => {
           </svg>
         </button>
 
-        <ul className="dropdown-menu absolute md:text-end md:right-6 w-28 md:w-[70%] rounded-md mb-1 h-max hidden text-sm md:text-md md:ml-0 ml-3 bg-color-secondary">
+        <ul className="dropdown-menu absolute md:text-end md:right-6 w-28 md:w-[70%] rounded-md mb-1 h-max hidden text-sm md:text-md md:ml-0 ml-3 bg-color-secondary lg:py-1">
           <li className="bg-color-secondary text-color-accent hover:bg-color-primary hover:text-color-accent cursor-pointer border border-color-secondary hover:border-color-accent rounded-md py-1 pr-4 md:pl-0 pl-3">
-            <Link href={'/dashbord'}>Dashboard</Link>
+            <Link href={'/dashboard'}>Dashboard</Link>
           </li>
           <li>
             <button
-              onClick={() => handleLogOut()}
-              className="bg-color-secondary text-color-accent hover:bg-color-primary hover:text-color-accent cursor-pointer border border-color-secondary hover:border-color-accent rounded-md py-1 pr-4 md:pl-0 pl-3 w-full lg:text-end text-start"
+              onClick={() => signOut()}
+              className="bg-color-secondary text-color-accent hover:bg-color-primary hover:text-color-accent cursor-pointer border border-color-secondary hover:border-color-accent rounded-md py-1 pr-4 md:pl-0 pl-3 w-full md:text-end text-start"
             >
-              SignOut
+              Sign Out
             </button>
           </li>
         </ul>
