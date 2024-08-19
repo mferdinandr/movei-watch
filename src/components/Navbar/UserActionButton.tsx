@@ -35,7 +35,14 @@ const UserActionButton = () => {
       </div>
     );
   }
-  return <button onClick={() => signIn()}>Sign In</button>;
+  return (
+    <button
+      onClick={() => signIn()}
+      className="border border-color-dark rounded-md px-3 py-1 hover:bg-color-secondary hover:text-color-primary md:w-auto w-1/3"
+    >
+      Sign In
+    </button>
+  );
 };
 
 export default UserActionButton;

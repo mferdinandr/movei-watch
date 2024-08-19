@@ -4,8 +4,6 @@ import { redirect } from 'next/navigation';
 import React from 'react';
 
 const Page = () => {
-  const { data } = useSession();
-
   return <div>Dashboard</div>;
 };
 
