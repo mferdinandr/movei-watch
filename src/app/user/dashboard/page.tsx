@@ -6,10 +6,6 @@ import React from 'react';
 const Page = () => {
   const { data } = useSession();
 
-  if (!data) {
-    redirect('/');
-  }
-
   return <div>Dashboard</div>;
 };
 

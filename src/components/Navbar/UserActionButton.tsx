@@ -21,7 +21,7 @@ const UserActionButton = () => {
 
         <ul className="dropdown-menu absolute md:text-end md:right-6 w-28 md:w-[70%] rounded-md mb-1 h-max hidden text-sm md:text-md md:ml-0 ml-3 bg-color-secondary lg:py-1">
           <li className="bg-color-secondary text-color-accent hover:bg-color-primary hover:text-color-accent cursor-pointer border border-color-secondary hover:border-color-accent rounded-md py-1 pr-4 md:pl-0 pl-3">
-            <Link href={'/dashboard'}>Dashboard</Link>
+            <Link href={'/user/dashboard'}>Dashboard</Link>
           </li>
           <li>
             <button
