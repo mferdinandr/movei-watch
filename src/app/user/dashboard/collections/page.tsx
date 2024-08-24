@@ -8,7 +8,7 @@ import Header from '../Header';
 const Page = () => {
   return (
     <div className="">
-      <Header />
+      <Header title="My Collections" />
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
         <Link
           href={''}
@@ -17,7 +17,7 @@ const Page = () => {
           <Image
             src={''}
             alt=""
-            height={350}
+            height={500}
             width={350}
             className="w-full h-full rounded-md"
           />

@@ -3,7 +3,7 @@ import React from 'react';
 import Text from '@/components/Text';
 import { useRouter } from 'next/navigation';
 
-const Header = () => {
+const Header = ({ title }: { title: string }) => {
   const router = useRouter();
 
   const handleBack = (event) => {
@@ -12,14 +12,14 @@ const Header = () => {
   };
 
   return (
-    <div className="flex justify-between mb-5">
+    <div className="flex justify-between mb-5 mt-7">
       <button
         onClick={handleBack}
-        className="bg-color-primary text-color-accent px-3 rounded-lg"
+        className="bg-color-primary text-color-accent px-3 py-1 rounded-lg"
       >
         Back
       </button>
-      <Text title="My Collections" />
+      <Text title={title} />
     </div>
   );
 };
