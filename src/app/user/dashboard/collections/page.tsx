@@ -1,11 +1,19 @@
-'use client';
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Text from '@/components/Text';
 import Header from '../Header';
 
-const Page = () => {
+import { getCollection } from '@/lib/auth-libs';
+import prisma from '@/lib/prisma';
+
+const Page = async () => {
+  const user = await getCollection();
+  const collection = await prisma.collection.findMany({
+    where: { user_email: user },
+  });
+  console.log('eaaea', { collection });
+
   return (
     <div className="">
       <Header title="My Collections" />

@@ -6,6 +6,9 @@ import Image from 'next/image';
 import VideoPlayer from '@/components/Utilities/VideoPlayer';
 import Header from '@/components/MovieList/Header';
 import MovieList from '@/components/MovieList';
+import CollectionButton from '@/components/Button/CollectionButton';
+import { useSession } from 'next-auth/react';
+import { getCollection } from '@/lib/auth-libs';
 
 type Params = {
   id: string;
@@ -35,6 +38,8 @@ type recomendedMovie = {
 };
 
 const Page = ({ params: { id } }: { params: Params }) => {
+  const user = useSession();
+
   const [trailerKey, setTrailerKey] = useState<string>('');
   const [movie, setMovie] = useState<Movie>();
   const [recomendedMovie, setRecomendedMovie] = useState<recomendedMovie[]>();
@@ -83,21 +88,29 @@ const Page = ({ params: { id } }: { params: Params }) => {
   return (
     <div className="text-color-accent h-[1200px]">
       <div>
-        {movie?.homepage ? (
-          <a href={`${movie?.homepage}`} target="_blank">
+        <div className="flex items-center gap-7">
+          {movie?.homepage ? (
+            <a href={`${movie?.homepage}`} target="_blank">
+              <Text
+                title={`${movie?.original_title} - ${releaseYear}`}
+                type="main"
+                className="text-2xl underline pb-1"
+              />
+            </a>
+          ) : (
             <Text
               title={`${movie?.original_title} - ${releaseYear}`}
               type="main"
-              className="text-2xl underline pb-1"
+              className="text-2xl pb-1"
             />
-          </a>
-        ) : (
-          <Text
-            title={`${movie?.original_title} - ${releaseYear}`}
-            type="main"
-            className="text-2xl pb-1"
-          />
-        )}
+          )}
+          {user.data && (
+            <CollectionButton
+              movie_id={movie?.id}
+              user_email={user.data?.user?.email}
+            />
+          )}
+        </div>
         <div>
           <ul className="flex space-x-3 text-color-primary  ">
             {movie?.genres.map((data: any, index: number) => (
