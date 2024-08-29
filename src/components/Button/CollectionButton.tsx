@@ -55,8 +55,12 @@ const CollectionButton = ({
       ) : (
         <button
           className={`cursor-pointer ${
-            isInCollection && 'bg-color-secondary border-color-secondary'
-          } bg-color-primary hover:bg-color-secondary border border-color-primary hover:border-color-accent py-1 px-2 rounded-md text-xs`}
+            isInCollection &&
+            'bg-color-secondary border-color-secondary cursor-default'
+          } bg-color-primary ${
+            !isInCollection &&
+            'hover:bg-color-secondary border border-color-primary hover:border-color-accent'
+          }  py-1 px-2 rounded-md text-xs`}
           onClick={handleAddCollection}
           disabled={isInCollection}
         >
