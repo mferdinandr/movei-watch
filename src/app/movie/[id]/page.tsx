@@ -8,7 +8,6 @@ import Header from '@/components/MovieList/Header';
 import MovieList from '@/components/MovieList';
 import CollectionButton from '@/components/Button/CollectionButton';
 import { useSession } from 'next-auth/react';
-import { getCollection } from '@/lib/auth-libs';
 
 type Params = {
   id: string;
@@ -88,7 +87,7 @@ const Page = ({ params: { id } }: { params: Params }) => {
   return (
     <div className="text-color-accent h-[1200px]">
       <div>
-        <div className="flex items-center gap-7">
+        <div className="sm:flex items-center md:justify-between lg:justify-start gap-7">
           {movie?.homepage ? (
             <a href={`${movie?.homepage}`} target="_blank">
               <Text

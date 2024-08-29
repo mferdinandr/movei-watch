@@ -40,7 +40,7 @@ const CollectionButton = ({ movie_id, user_email }) => {
   };
 
   return (
-    <div className="pt-4">
+    <div className="sm:pt-4 pt-1 pb-2">
       {isCreated ? (
         <p>Successfully added</p>
       ) : (
