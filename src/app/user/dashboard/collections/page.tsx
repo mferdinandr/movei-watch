@@ -9,30 +9,42 @@ import prisma from '@/lib/prisma';
 
 const Page = async () => {
   const user = await getCollection();
-  const collection = await prisma.collection.findMany({
-    where: { user_email: user },
+  const collections = await prisma.collection.findMany({
+    where: { user_email: String(user) },
   });
-  console.log('eaaea', { collection });
 
   return (
     <div className="">
       <Header title="My Collections" />
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-        <Link
-          href={''}
-          className="border border-color-primary relative rounded-md"
-        >
-          <Image
-            src={''}
-            alt=""
-            height={500}
-            width={350}
-            className="w-full h-full rounded-md"
-          />
-          <div className="absolute bottom-0 w-full flex items-center justify-center rounded-b-md bg-color-secondary">
-            <Text title="Judul" className="text-color-primary" />
-          </div>
-        </Link>
+      <div className="grid sm:grid-cols-3 lg:grid-cols-5 grid-cols-2 md:gap-3 gap-2">
+        {collections.map((collection) => (
+          <Link
+            key={collection.id}
+            href={`/movie/${collection.movie_id}`}
+            className="shadow-xl rounded-lg cursor-pointer border flex flex-col bg-color-accent hover:text-color-primary transition-all text-color-dark"
+          >
+            {collection.poster_path ? (
+              <Image
+                src={`https://image.tmdb.org/t/p/w500/${collection.poster_path}`}
+                alt={`${collection.movie_title} Image`}
+                width={350}
+                height={350}
+                className="px-1 pt-1 rounded-xl max-h-full h-[300px] xl:h-[480px] object-cover"
+                priority
+              />
+            ) : (
+              <div className="p-1 h-[300px] xl:h-[480px] border-b shadow-xl px-1 pt-1 rounded-xl flex items-center text-center justify-center">
+                <Text
+                  title="No Image Available"
+                  className="text-color-secondary "
+                />
+              </div>
+            )}
+            <h3 className="font-bold text-sm md:text-md lg:text-lg xl:text-xl text-center p-2 my-auto">
+              {collection.movie_title}
+            </h3>
+          </Link>
+        ))}
       </div>
     </div>
   );

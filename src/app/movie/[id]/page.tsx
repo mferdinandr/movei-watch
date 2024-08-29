@@ -107,6 +107,8 @@ const Page = ({ params: { id } }: { params: Params }) => {
             <CollectionButton
               movie_id={movie?.id}
               user_email={user.data?.user?.email}
+              poster_path={movie?.poster_path}
+              movie_title={movie?.original_title}
             />
           )}
         </div>
