@@ -17,7 +17,7 @@ model Collection {
   id          Int    @id @default(autoincrement())
   movie_id    Int
   user_email  String
-  poster_path String  
+  poster_path String?  
   movie_title String
 
   @@unique([user_email, movie_id])
