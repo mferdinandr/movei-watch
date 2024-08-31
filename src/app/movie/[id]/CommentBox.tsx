@@ -61,10 +61,10 @@ const CommentBox = ({
         value={comment}
         className="mb-2 rounded-md text-color-dark p-2 h-28"
       />
-      <div className="flex justify-end items-center gap-4">
+      <div className="flex md:flex-row flex-col justify-end items-center gap-4">
         {created && <p>Sucessfully to Post Comment</p>}
         <button
-          className="bg-color-primary px-3 py-2 rounded-md w-1/4"
+          className="bg-color-primary px-3 py-2 rounded-md md:w-1/4 w-full"
           onClick={handlePostComment}
         >
           Send Comment
