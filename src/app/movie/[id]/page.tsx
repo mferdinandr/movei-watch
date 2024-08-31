@@ -8,6 +8,7 @@ import Header from '@/components/MovieList/Header';
 import MovieList from '@/components/MovieList';
 import CollectionButton from '@/components/Button/CollectionButton';
 import { useSession } from 'next-auth/react';
+import CommentBox from './CommentBox';
 
 type Params = {
   id: string;
@@ -105,10 +106,10 @@ const Page = ({ params: { id } }: { params: Params }) => {
           )}
           {user.data && (
             <CollectionButton
-              movie_id={movie?.id}
-              user_email={user.data?.user?.email}
-              poster_path={movie?.poster_path}
-              movie_title={movie?.original_title}
+              movie_id={Number(movie?.id)}
+              user_email={String(user.data?.user?.email)}
+              poster_path={String(movie?.poster_path)}
+              movie_title={String(movie?.original_title)}
             />
           )}
         </div>
@@ -159,10 +160,19 @@ const Page = ({ params: { id } }: { params: Params }) => {
         </div>
       </div>
 
+      <div>
+        <CommentBox
+          movie_id={Number(movie?.id)}
+          user_email={String(user.data?.user?.email)}
+          username={String(user.data?.user?.name)}
+          movie_title={String(movie?.original_title)}
+        />
+      </div>
+
       <VideoPlayer id={trailerKey} />
 
       <div className="md:mt-14 xl:mt-16 mt-10 pb-14">
-        <Header title={'Rekomendasi'} type={'main'} />
+        <Header title={'Recomendation'} type={'main'} />
         <MovieList api={recomendedMovie?.slice(0, 10)} />
       </div>
     </div>
