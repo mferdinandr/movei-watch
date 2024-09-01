@@ -19,3 +19,19 @@ export async function POST(request: Request) {
     );
   }
 }
+
+export async function GET(request: Request) {
+  const url = new URL(request.url);
+  const movie_id = url.searchParams.get('movie_id');
+
+  if (movie_id) {
+    const comments = await prisma.comment.findMany({
+      where: { movie_id: parseInt(movie_id, 10) },
+    });
+
+    return NextResponse.json(comments);
+  }
+  if (movie_id == undefined) {
+    return;
+  }
+}

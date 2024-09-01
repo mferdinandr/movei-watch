@@ -9,6 +9,7 @@ import MovieList from '@/components/MovieList';
 import CollectionButton from '@/components/Button/CollectionButton';
 import { useSession } from 'next-auth/react';
 import CommentInput from './CommentInput';
+import CommentsBox from './CommentsBox';
 
 type Params = {
   id: string;
@@ -162,14 +163,18 @@ const Page = ({ params: { id } }: { params: Params }) => {
 
       <Text title="Comment" type="main" />
 
-      <div>
-        <CommentInput
-          movie_id={Number(movie?.id)}
-          user_email={String(user.data?.user?.email)}
-          username={String(user.data?.user?.name)}
-          movie_title={String(movie?.original_title)}
-        />
-      </div>
+      <CommentsBox movie_id={movie?.id} />
+
+      {user.data && (
+        <div>
+          <CommentInput
+            movie_id={Number(movie?.id)}
+            user_email={String(user.data?.user?.email)}
+            username={String(user.data?.user?.name)}
+            movie_title={String(movie?.original_title)}
+          />
+        </div>
+      )}
 
       <VideoPlayer id={trailerKey} />
 
