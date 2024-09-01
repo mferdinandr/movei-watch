@@ -31,7 +31,7 @@ const CollectionButton = ({
     };
 
     checkCollection();
-  }, [movie_id, user_email]);
+  }, [movie_id, user_email, poster_path, movie_title]);
 
   const handleAddCollection = async (event: any) => {
     event.preventDefault();

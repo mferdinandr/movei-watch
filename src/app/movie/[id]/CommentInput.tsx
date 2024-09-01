@@ -3,19 +3,19 @@
 import Text from '@/components/Text';
 import React, { useEffect, useState } from 'react';
 
-type CommentBoxProps = {
+type CommentInputProps = {
   movie_id: Number;
   user_email: String;
   username: String;
   movie_title: String;
 };
 
-const CommentBox = ({
+const CommentInput = ({
   movie_id,
   user_email,
   username,
   movie_title,
-}: CommentBoxProps) => {
+}: CommentInputProps) => {
   const [comment, setComment] = useState('');
   const [created, setIsCreated] = useState(false);
 
@@ -54,8 +54,7 @@ const CommentBox = ({
   }, [created]);
 
   return (
-    <div className="flex flex-col mt-5">
-      <Text title="Comment" type="main" />
+    <div className="flex flex-col">
       <textarea
         onChange={handleChange}
         value={comment}
@@ -74,4 +73,4 @@ const CommentBox = ({
   );
 };
 
-export default CommentBox;
+export default CommentInput;
