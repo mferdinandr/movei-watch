@@ -35,3 +35,15 @@ export async function GET(request: Request) {
     return;
   }
 }
+
+export async function DELETE(request: Request) {
+  const url = new URL(request.url);
+  const comment_id = url.searchParams.get('id');
+
+  if (comment_id) {
+    const comment = await prisma.comment.delete({
+      where: { id: Number(comment_id) },
+    });
+    return NextResponse.json({ status: 200, isDeleted: true });
+  }
+}

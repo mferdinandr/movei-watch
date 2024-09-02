@@ -8,7 +8,7 @@ const UserActionButton = () => {
   if (data) {
     return (
       <div className="dropdown inline-block relative">
-        <button className="font-semibold px-4 rounded inline-flex items-center mb-1">
+        <button className="font-semibold px-4 rounded inline-flex items-center">
           <span className="mr-1">{data.user?.name}</span>
           <svg
             className="fill-current h-4 w-4"

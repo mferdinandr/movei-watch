@@ -15,7 +15,7 @@ const Header = ({ title }: { title: string }) => {
     <div className="flex justify-between mb-5 mt-7">
       <button
         onClick={handleBack}
-        className="bg-color-primary text-color-accent px-3 py-1 rounded-lg"
+        className="bg-color-primary text-color-accent px-3 rounded-lg"
       >
         Back
       </button>
