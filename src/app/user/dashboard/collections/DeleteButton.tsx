@@ -19,7 +19,6 @@ const DeleteButton = ({ id }) => {
   });
 
   const handleDelete = () => {
-    console.log('Deleting movie with ID:', id);
     mutate();
   };
 

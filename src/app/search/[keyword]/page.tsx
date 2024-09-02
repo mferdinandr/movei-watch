@@ -24,13 +24,13 @@ const Page = ({ params: { keyword } }: { params: Params }) => {
       setData(searchedMovie);
     };
     fetchSearchMovie();
-  }, [page]);
+  }, [page, keyword]);
 
   return (
     <div className="my-2">
       <section>
         <Header
-          title={`Pencarian film untuk '${decodeURIComponent(keyword)}'`}
+          title={`Result for '${decodeURIComponent(keyword)}'`}
           type={'main'}
           linkHref="/populer"
         />

@@ -32,7 +32,7 @@ const InputSearch = ({ back }: { back: boolean }) => {
   return (
     <div className="relative md:w-[40%] lg:w-1/4">
       <input
-        placeholder="Cari film...."
+        placeholder="Search Movie...."
         className="py-2 pl-8 font-medium w-full rounded-lg bg-color-dark text-color-accent"
         ref={searchRef}
         type="search"
@@ -40,7 +40,7 @@ const InputSearch = ({ back }: { back: boolean }) => {
       />
       {eror && (
         <p className="absolute text-color-eror top-[0.5rem] xl:right-[2.6rem] right-10">
-          Harus lebih dari 1 huruf
+          Must more than 1 char
         </p>
       )}
       <button className="absolute end-2 top-2" onClick={handleSearch}>

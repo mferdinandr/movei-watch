@@ -14,7 +14,7 @@ const MovieScrollX = ({ api }: { api: any }) => {
           linkHref="/user/dashboard/collections"
         />
       )}
-      <div className="flex overflow-x-auto whitespace-nowrap space-x-2 md:space-x-3 py-2">
+      <div className="flex overflow-x-auto whitespace-nowrap space-x-2 md:space-x-3 pb-2">
         {api?.length > 0 &&
           api.map((data: any) => {
             const posterPath = data.poster_path
