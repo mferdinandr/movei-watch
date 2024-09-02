@@ -1,23 +1,59 @@
 import MovieList from '@/components/MovieList';
 import Header from '@/components/MovieList/Header';
+import MovieScrollY from '@/components/MovieList/MovieScrollX';
 import { fetchApi } from '@/lib/api-libs';
-
-const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
-const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
+import { getCollection } from '@/lib/auth-libs';
+import prisma from '@/lib/prisma';
 
 const Page = async () => {
-  const topMovies = await fetchApi('popular');
+  const mostPopuler = await fetchApi('popular');
+  const topRated = await fetchApi('top_rated');
+  const upcoming = await fetchApi('upcoming');
+
+  const user = await getCollection();
+  const collections = await prisma.collection.findMany({
+    where: { user_email: String(user) },
+  });
 
   return (
-    <div className="my-2 flex flex-col space-y-10">
+    <div className="mb-2 flex flex-col space-y-5">
+      {user && (
+        <section>
+          <Header
+            title={'Collection'}
+            type={'main'}
+            linkTitle="Show More"
+            linkHref="/user/dashboard/collections"
+          />
+          <MovieScrollY api={collections} />
+        </section>
+      )}
       <section>
         <Header
-          title={'Paling Populer'}
+          title={'Most Populer'}
           type={'main'}
-          linkTitle="Lihat semua"
+          linkTitle="Show More"
           linkHref="/populer"
         />
-        <MovieList api={topMovies.results.slice(0, 10)} />
+        <MovieList api={mostPopuler.results.slice(0, 10)} />
+      </section>
+      <section>
+        <Header
+          title={'Top Rated'}
+          type={'main'}
+          linkTitle="Show More"
+          linkHref="/top-rated"
+        />
+        <MovieList api={topRated.results.slice(0, 10)} />
+      </section>
+      <section>
+        <Header
+          title={'Upcoming'}
+          type={'main'}
+          linkTitle="Show More"
+          linkHref="/upcoming"
+        />
+        <MovieList api={upcoming.results.slice(0, 10)} />
       </section>
     </div>
   );

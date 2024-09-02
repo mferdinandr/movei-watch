@@ -16,7 +16,7 @@ const Page = () => {
 
   useEffect(() => {
     const fetchTopMovie = async () => {
-      const topMovies = await fetchApi('popular', `page=${page}`);
+      const topMovies = await fetchApi('upcoming', `page=${page}`);
       setData(topMovies);
     };
     fetchTopMovie();
@@ -24,7 +24,7 @@ const Page = () => {
 
   return (
     <div>
-      <HeaderMenu title={`MOST POPULER #${page}`} />
+      <HeaderMenu title={`UPCOMING #${page}`} />
       <MovieList api={data.results} />
       <Pagination page={page} setPage={setPage} lastPage={data?.total_pages} />
     </div>

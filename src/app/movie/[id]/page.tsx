@@ -163,7 +163,7 @@ const Page = ({ params: { id } }: { params: Params }) => {
 
       <Text title="Comment" type="main" />
 
-      <CommentsBox movie_id={String(movie?.id)} />
+      <CommentsBox movie_id={id} />
 
       {user.data && (
         <div>
