@@ -1,6 +1,6 @@
 import MovieList from '@/components/MovieList';
 import Header from '@/components/MovieList/Header';
-import MovieScrollY from '@/components/MovieList/MovieScrollX';
+import MovieScrollX from '@/components/MovieList/MovieScrollX';
 import { fetchApi } from '@/lib/api-libs';
 import { getCollection } from '@/lib/auth-libs';
 import prisma from '@/lib/prisma';
@@ -17,15 +17,9 @@ const Page = async () => {
 
   return (
     <div className="mb-2 flex flex-col space-y-5">
-      {user && (
+      {user && collections.length > 0 && (
         <section>
-          <Header
-            title={'Collection'}
-            type={'main'}
-            linkTitle="Show More"
-            linkHref="/user/dashboard/collections"
-          />
-          <MovieScrollY api={collections} />
+          <MovieScrollX api={collections} />
         </section>
       )}
       <section>

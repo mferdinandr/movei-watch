@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Text from '@/components/Text';
 import Header from '../Header';
+import DeleteButton from './DeleteButton';
 
 import { getCollection } from '@/lib/auth-libs';
 import prisma from '@/lib/prisma';
@@ -18,32 +19,34 @@ const Page = async () => {
       <Header title="My Collections" />
       <div className="grid sm:grid-cols-3 lg:grid-cols-5 grid-cols-2 md:gap-3 gap-2">
         {collections.map((collection) => (
-          <Link
+          <div
             key={collection.id}
-            href={`/movie/${collection.movie_id}`}
-            className="shadow-xl rounded-lg cursor-pointer border flex flex-col bg-color-accent hover:text-color-primary transition-all text-color-dark"
+            className="shadow-xl rounded-lg cursor-pointer border flex flex-col bg-color-accent hover:text-color-primary transition-all text-color-dark justify-between"
           >
-            {collection.poster_path ? (
-              <Image
-                src={`https://image.tmdb.org/t/p/w500/${collection.poster_path}`}
-                alt={`${collection.movie_title} Image`}
-                width={350}
-                height={350}
-                className="px-1 pt-1 rounded-xl max-h-full h-[300px] xl:h-[480px] object-cover"
-                priority
-              />
-            ) : (
-              <div className="p-1 h-[300px] xl:h-[480px] border-b shadow-xl px-1 pt-1 rounded-xl flex items-center text-center justify-center">
-                <Text
-                  title="No Image Available"
-                  className="text-color-secondary "
+            <Link href={`/movie/${collection.movie_id}`}>
+              {collection.poster_path ? (
+                <Image
+                  src={`https://image.tmdb.org/t/p/w500/${collection.poster_path}`}
+                  alt={`${collection.movie_title} Image`}
+                  width={350}
+                  height={350}
+                  className="px-1 pt-1 rounded-xl max-h-full h-[300px] xl:h-[480px] object-cover"
+                  priority
                 />
-              </div>
-            )}
-            <h3 className="font-bold text-sm md:text-md lg:text-lg xl:text-xl text-center p-2 my-auto">
-              {collection.movie_title}
-            </h3>
-          </Link>
+              ) : (
+                <div className="p-1 h-[300px] xl:h-[480px] border-b shadow-xl px-1 pt-1 rounded-xl flex items-center text-center justify-center">
+                  <Text
+                    title="No Image Available"
+                    className="text-color-secondary "
+                  />
+                </div>
+              )}
+              <h3 className="font-bold text-sm md:text-md lg:text-lg xl:text-xl text-center p-2 my-auto">
+                {collection.movie_title}
+              </h3>
+            </Link>
+            <DeleteButton id={collection.id} />
+          </div>
         ))}
       </div>
     </div>

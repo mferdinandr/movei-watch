@@ -29,3 +29,19 @@ export async function POST(request: Request) {
     );
   }
 }
+
+export async function DELETE(request: Request) {
+  try {
+    const url = new URL(request.url);
+    const id = url.searchParams.get('id');
+
+    if (id) {
+      const collection = await prisma.collection.delete({
+        where: { id: Number(id) },
+      });
+      return NextResponse.json({ status: 200, isDeleted: true });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
