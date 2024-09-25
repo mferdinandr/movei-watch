@@ -22,7 +22,7 @@ const CommentInput = ({
   const [error, setError] = useState(false);
 
   const queryClient = useQueryClient();
-  const searchRef = useRef(null);
+  const searchRef = useRef<HTMLTextAreaElement | null>(null);
 
   const handleChange = (event: any) => {
     setComment(event.target.value);
@@ -46,6 +46,7 @@ const CommentInput = ({
 
   const handlePostComment = (e: any) => {
     const keyword = searchRef.current?.value as string;
+
     if (e.key === 'Enter' || e.type === 'click') {
       if (keyword.length >= 4 && keyword.trim() !== '') {
         e.preventDefault();

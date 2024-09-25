@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 
-const DeleteButton = ({ movie_id }) => {
+const DeleteButton = ({ movie_id }: { movie_id: number }) => {
   const queryClient = useQueryClient();
   const router = useRouter();
 
