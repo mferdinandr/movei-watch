@@ -1,6 +1,6 @@
 'use client';
 import { fetchApi } from '@/lib/api-libs';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Text from '@/components/Text';
 import Image from 'next/image';
 import VideoPlayer from '@/components/Utilities/VideoPlayer';
@@ -10,20 +10,10 @@ import CollectionButton from '@/components/Button/CollectionButton';
 import { useSession } from 'next-auth/react';
 import CommentInput from './CommentInput';
 import CommentsBox from './CommentsBox';
+import { useQuery } from '@tanstack/react-query';
 
 type Params = {
   id: string;
-};
-
-type Movie = {
-  original_title: string;
-  release_date: string;
-  homepage: string;
-  genres: { name: string }[];
-  poster_path: string;
-  overview: string;
-  id: number;
-  production_companies: { name: string; origin_country?: string }[];
 };
 
 type videoParams = {
@@ -32,59 +22,44 @@ type videoParams = {
   type: string;
 };
 
-type recomendedMovie = {
-  poster_path: string;
-  id: string;
-  title: string;
-};
-
 const Page = ({ params: { id } }: { params: Params }) => {
   const user = useSession();
 
-  const [trailerKey, setTrailerKey] = useState<string>('');
-  const [movie, setMovie] = useState<Movie>();
-  const [recomendedMovie, setRecomendedMovie] = useState<recomendedMovie[]>();
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['detailMovie', id],
+    queryFn: async () => {
+      const movieData = await fetchApi(id);
+      const videoData = await fetchApi(`${id}/videos`);
+      const recomendationMovies = await fetchApi(`${id}/recommendations`);
 
-  useEffect(() => {
-    const fetchVideo = async () => {
-      try {
-        const movieData = await fetchApi(id);
-        setMovie(movieData);
+      let trailerKey = null;
+      if (videoData.results) {
+        let officialTrailer = videoData.results.find(
+          (video: videoParams) =>
+            video.type === 'Trailer' && video.name === 'Official Trailer'
+        );
 
-        const videoData = await fetchApi(`${id}/videos`);
-
-        if (videoData.results) {
-          let officialTrailer = videoData.results.find(
-            (video: videoParams) =>
-              video.type === 'Trailer' && video.name === 'Official Trailer'
+        if (!officialTrailer) {
+          officialTrailer = videoData.results.find(
+            (video: videoParams) => video.type === 'Trailer'
           );
-
-          if (!officialTrailer) {
-            officialTrailer = videoData.results.find(
-              (video: videoParams) => video.type === 'Trailer'
-            );
-          }
-
-          setTrailerKey(officialTrailer ? officialTrailer.key : null);
         }
-      } catch (error) {
-        alert('Error fetching video data:' + error);
-      }
-    };
-    fetchVideo();
-  }, [id]);
 
-  useEffect(() => {
-    const recomendation = async () => {
-      if (movie) {
-        const recomendedMovie = await fetchApi(`${movie.id}/recommendations`);
-        setRecomendedMovie(recomendedMovie.results);
+        trailerKey = officialTrailer ? officialTrailer.key : null;
       }
-    };
-    recomendation();
-  }, [movie]);
+      return {
+        movie: movieData,
+        trailerKey,
+        recomendedMovies: recomendationMovies.results.slice(0, 10),
+      };
+    },
+  });
 
-  const releaseYear = movie?.release_date.split('-')[0];
+  if (isLoading) return <h1>Loading......</h1>;
+  if (error) return <h1>Cannot Load Detail Movie</h1>;
+
+  const { movie, recomendationMovies, trailerKey }: any = data;
+  const releaseYear = movie.release_date.split('-')[0];
 
   return (
     <div className="text-color-accent h-[1200px]">
@@ -180,7 +155,7 @@ const Page = ({ params: { id } }: { params: Params }) => {
 
       <div className="md:mt-14 xl:mt-16 mt-10 pb-14">
         <Header title={'Recomendation'} type={'main'} />
-        <MovieList api={recomendedMovie?.slice(0, 10)} />
+        <MovieList api={recomendationMovies?.slice(0, 10)} />
       </div>
     </div>
   );

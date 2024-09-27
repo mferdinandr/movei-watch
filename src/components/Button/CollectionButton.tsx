@@ -1,52 +1,48 @@
 'use client';
-import { useQueryClient } from '@tanstack/react-query';
-import React, { useState, useEffect } from 'react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import React, { useState } from 'react';
+
+type InputProps = {
+  movie_id: Number;
+  user_email: String;
+  poster_path: String;
+  movie_title: String;
+};
 
 const CollectionButton = ({
   movie_id,
   user_email,
   poster_path,
   movie_title,
-}: {
-  movie_id: Number;
-  user_email: String;
-  poster_path: String;
-  movie_title: String;
-}) => {
+}: InputProps) => {
   const [isCreated, setIsCreated] = useState<Boolean>(false);
   const [isInCollection, setIsInCollection] = useState(false);
 
-  useEffect(() => {
-    const checkCollection = async () => {
-      const data = { movie_id, user_email, poster_path, movie_title };
+  const queryClient = useQueryClient();
 
-      const response = await fetch(`/api/v1/collections/check`, {
+  const { mutate } = useMutation({
+    mutationFn: async (payload: InputProps) => {
+      await fetch('/api/v1/collections', {
         method: 'POST',
-        body: JSON.stringify(data),
+        body: JSON.stringify(payload),
       });
 
-      const result = await response.json();
-      if (result.isInCollection) {
-        setIsInCollection(true);
-      }
-    };
-
-    checkCollection();
-  }, [movie_id, user_email, poster_path, movie_title]);
+      await fetch(`/api/v1/collections/check`, {
+        method: 'POST',
+        body: JSON.stringify(payload),
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['collectionMovie'] });
+      setIsCreated(true);
+      setIsInCollection(true);
+    },
+  });
 
   const handleAddCollection = async (event: any) => {
     event.preventDefault();
 
-    const data = { movie_id, user_email, poster_path, movie_title };
-
-    const response = await fetch('/api/v1/collections', {
-      method: 'POST',
-      body: JSON.stringify(data),
-    });
-    const collection = await response.json();
-    if (collection.status == 200) {
-      setIsCreated(true);
-    }
+    mutate({ movie_id, user_email, poster_path, movie_title });
   };
 
   return (

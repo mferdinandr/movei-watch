@@ -1,26 +1,25 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import HeaderMenu from '@/components/Utilities/HeaderMenu';
 import Pagination from '@/components/Utilities/Pagination';
 import MovieList from '@/components/MovieList';
 import { fetchApi } from '@/lib/api-libs';
+import { useQuery } from '@tanstack/react-query';
 
 const Page = () => {
-  const [data, setData] = useState<MovieApiResponse>({
-    page: 1,
-    results: [],
-    total_pages: 0,
-    total_results: 0,
-  });
   const [page, setPage] = useState<number>(1);
 
-  useEffect(() => {
-    const fetchTopMovie = async () => {
-      const topMovies = await fetchApi('upcoming', `page=${page}`);
-      setData(topMovies);
-    };
-    fetchTopMovie();
-  }, [page]);
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['upcomingMovies', page],
+    queryFn: async () => {
+      const upcomingMovies = await fetchApi('upcoming', `page=${page}`);
+
+      return upcomingMovies;
+    },
+  });
+
+  if (isLoading) return <h1>Loading....</h1>;
+  if (error) return <h1>Error to catch data</h1>;
 
   return (
     <div>

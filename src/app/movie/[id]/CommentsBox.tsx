@@ -1,4 +1,4 @@
-import { fetchApi } from '@/lib/api-libs';
+
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 
