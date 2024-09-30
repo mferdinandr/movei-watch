@@ -11,6 +11,7 @@ import { useSession } from 'next-auth/react';
 import CommentInput from './CommentInput';
 import CommentsBox from './CommentsBox';
 import { useQuery } from '@tanstack/react-query';
+import Loading from '@/app/loading';
 
 type Params = {
   id: string;
@@ -47,18 +48,20 @@ const Page = ({ params: { id } }: { params: Params }) => {
 
         trailerKey = officialTrailer ? officialTrailer.key : null;
       }
+
       return {
         movie: movieData,
         trailerKey,
-        recomendedMovies: recomendationMovies.results.slice(0, 10),
+        recomendationMovies: recomendationMovies.results,
       };
     },
   });
 
-  if (isLoading) return <h1>Loading......</h1>;
+  if (isLoading) return <Loading />;
   if (error) return <h1>Cannot Load Detail Movie</h1>;
 
   const { movie, recomendationMovies, trailerKey }: any = data;
+
   const releaseYear = movie.release_date.split('-')[0];
 
   return (
@@ -155,7 +158,7 @@ const Page = ({ params: { id } }: { params: Params }) => {
 
       <div className="md:mt-14 xl:mt-16 mt-10 pb-14">
         <Header title={'Recomendation'} type={'main'} />
-        <MovieList api={recomendationMovies?.slice(0, 10)} />
+        <MovieList api={recomendationMovies.slice(0, 10)} />
       </div>
     </div>
   );
